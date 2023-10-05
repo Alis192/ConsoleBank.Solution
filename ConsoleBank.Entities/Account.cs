@@ -15,6 +15,7 @@ namespace ConsoleBank.Entities
         private double _balance;
         private long _customerCode;
         private Customer _customer;
+        private long _accountNo;
 
 
         public Guid AccountID { get => _accountID; set => _accountID = value; }
@@ -39,10 +40,12 @@ namespace ConsoleBank.Entities
 
         public Customer Customer { get => _customer; set => _customer = value; }
 
+        public long AccountNo { get => _accountNo; set => _accountNo = value; }
+
 
         public object Clone()
         {
-            return new Account() { AccountID = this.AccountID, Balance = this.Balance, CustomerCode = this.CustomerCode, Customer = this.Customer };
+            return new Account() { AccountID = this.AccountID, Balance = this.Balance, CustomerCode = this.CustomerCode, Customer = this.Customer, _accountNo = this.AccountNo };
         }
     }
 

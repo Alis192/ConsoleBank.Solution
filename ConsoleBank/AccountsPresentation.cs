@@ -24,6 +24,8 @@ namespace ConsoleBank.Presentation
                 Customer cust = customersBLL.GetCustomersByCondition(c => c.CustomerCode == account.CustomerCode).FirstOrDefault();
                 accountsLL.AddAccount(account, cust);
 
+
+
             }
             catch (Exception ex)
             {
@@ -36,6 +38,7 @@ namespace ConsoleBank.Presentation
         {
             try
             {
+                Console.WriteLine("\n**********ALL CUSTOMERS*************");
                 IAccountsBusinessLogicLayer accountsBLL = new AccountsBusinessLogicLayer();
                 List<Account> accounts = accountsBLL.GetAccounts();
 
@@ -43,7 +46,7 @@ namespace ConsoleBank.Presentation
                 {
                     Console.WriteLine($"Account Customer Code: {account.CustomerCode}");
                     Console.WriteLine($"Account Holder Name: {account.Customer.CustomerName}");
-                    Console.WriteLine($"Account ID : {account.AccountID}");
+                    Console.WriteLine($"Account ID : {account.AccountNo}\n");
                 });
 
             }

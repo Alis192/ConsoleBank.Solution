@@ -28,6 +28,31 @@ namespace ConsoleBank.BusinessLogicLayer
             try
             {
                 account.Customer = customer;
+
+                List<Account> accounts = AccountDataAccessLayer.GetAccounts();
+
+                //Determining last used Account Code
+                long maxAccCode = 0;
+                foreach(var acc in accounts)
+                {
+                    if (acc.AccountNo > maxAccCode)
+                    {
+                        maxAccCode = acc.AccountNo;
+                    }
+
+                }
+
+                //
+                if (accounts.Count > 0)
+                {
+                    account.AccountNo = maxAccCode + 1;
+                } 
+                else
+                {
+                    account.AccountNo = ConsoleBank.Configuration.Settings.BaseAccountNo + 1;
+                }
+
+
                 return AccountDataAccessLayer.AddAccount(account);
             }
             catch (AccountException)
