@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleBank.BusinessLogicLayer\ConsoleBank.BusinessLogicLayer.csproj" />
+    <ProjectReference Include="..\ConsoleBank.Configuration\ConsoleBank.Configuration.csproj" />
+    <ProjectReference Include="..\ConsoleBank.Entities\ConsoleBank.Entities.csproj" />
+    <ProjectReference Include="..\ConsoleBank.Exceptions\ConsoleBank.Exceptions.csproj" />
+  </ItemGroup>
+
+</Project>
