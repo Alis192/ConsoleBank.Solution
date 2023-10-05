@@ -125,7 +125,7 @@ namespace ConsoleBank.Presentation
                 if (cust == null)
                     throw new CustomerException($"The customer with Customer Code: {customerCode} was not found!\n");
 
-
+                //Receiving User inputs
                 Console.WriteLine("Please enter new Customer information\n");
                 Console.Write("Customer Name: ");
                 customer.CustomerName = Console.ReadLine();
@@ -141,8 +141,10 @@ namespace ConsoleBank.Presentation
                 customer.Mobile = Console.ReadLine();
                 customer.CustomerCode= customerCode;
 
+                //Updating with new values
                 bool isUpdated = customersBusinessLogicLayer.UpdateCustomer(customer);
 
+                //Displaying appropriate success message
                 if (isUpdated == true)
                     Console.WriteLine("\nThe customer is successfully updated!");
                 else
@@ -156,6 +158,32 @@ namespace ConsoleBank.Presentation
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.GetType());
             }
+        }
+
+        internal static void DeleteCustomer()
+        {
+            ICustomersBusinessLogicLayer customersBusinessLogicLayer = new CustomersBusinessLogicLayer();
+
+            CustomersPresentation.ViewCustomers();
+
+            Console.WriteLine("\nPlease enter Customer code of a customer to want to delete: ");
+            string userInput = Console.ReadLine();
+
+            //Validating user input
+            bool result = long.TryParse(userInput, out long customerCode);
+            if (result == false)
+                throw new FormatException("The input is not in correct format\n");
+
+            //Validating customer number
+            Customer? cust = customersBusinessLogicLayer.GetCustomersByCondition(ct => ct.CustomerCode == customerCode).FirstOrDefault();
+            if (cust == null)
+                throw new CustomerException($"The customer with Customer Code: {customerCode} was not found!\n");
+
+            bool success = customersBusinessLogicLayer.DeleteCustomer(cust.CustomerID);
+
+            if (success)
+                Console.WriteLine($"Customer No {customerCode} was deleted.");
+
         }
 
 
