@@ -184,7 +184,7 @@ namespace ConsoleBank.DataAccessLayer
             try
             {
                 //find existing customer by CustomerID
-                Customer existingCustomer = Customers.Find(item => item.CustomerID == customer.CustomerID);
+                Customer? existingCustomer = Customers.Find(item => item.CustomerCode == customer.CustomerCode);
 
                 //update all details of customer
                 if (existingCustomer != null)

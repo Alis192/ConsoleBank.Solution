@@ -1,6 +1,8 @@
 ﻿using ConsoleBank.BusinessLogicLayer;
 using ConsoleBank.BusinessLogicLayer.BALContracts;
 using ConsoleBank.Entities;
+using ConsoleBank.Entities.Contracts;
+using ConsoleBank.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,8 +87,80 @@ namespace ConsoleBank.Presentation
             }
         }
 
+        internal static void EditCustomer()
+        {
+            try
+            {
+                //Create BL object
+                ICustomersBusinessLogicLayer customersBusinessLogicLayer = new CustomersBusinessLogicLayer();
+
+                //Create a new Customer object
+                Customer customer = new Customer();
+
+                List<Customer> allCustomers = customersBusinessLogicLayer.GetCustomers();
+                Console.WriteLine("\n**********ALL CUSTOMERS*************");
+                //read all customers
+                foreach (var item in allCustomers)
+                {
+                    Console.WriteLine("Customer Code: " + item.CustomerCode);
+                    Console.WriteLine("Customer Name: " + item.CustomerName);
+                    Console.WriteLine("Address: " + item.Address);
+                    Console.WriteLine("Landmark: " + item.Landmark);
+                    Console.WriteLine("City: " + item.City);
+                    Console.WriteLine("Country: " + item.Country);
+                    Console.WriteLine("Mobile: " + item.Mobile);
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine("\nEnter the Customer Code of a customer you want to edit: ");
+                string userInput = Console.ReadLine();
+
+                //Validating user input
+                bool result = long.TryParse(userInput, out long customerCode);
+                if (result == false)
+                    throw new FormatException("The input is not in correct format\n");
+
+                //Validating customer number
+                Customer? cust = customersBusinessLogicLayer.GetCustomersByCondition(ct => ct.CustomerCode == customerCode).FirstOrDefault();
+                if (cust == null)
+                    throw new CustomerException($"The customer with Customer Code: {customerCode} was not found!\n");
+
+
+                Console.WriteLine("Please enter new Customer information\n");
+                Console.Write("Customer Name: ");
+                customer.CustomerName = Console.ReadLine();
+                Console.Write("Address: ");
+                customer.Address = Console.ReadLine();
+                Console.Write("Landmark: ");
+                customer.Landmark = Console.ReadLine();
+                Console.Write("City: ");
+                customer.City = Console.ReadLine();
+                Console.Write("Country: ");
+                customer.Country = Console.ReadLine();
+                Console.Write("Mobile: ");
+                customer.Mobile = Console.ReadLine();
+                customer.CustomerCode= customerCode;
+
+                bool isUpdated = customersBusinessLogicLayer.UpdateCustomer(customer);
+
+                if (isUpdated == true)
+                    Console.WriteLine("\nThe customer is successfully updated!");
+                else
+                    Console.WriteLine("\nThe customer couldn't be updated");
+           
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.GetType());
+            }
+        }
 
 
     }
 
 }
+
+

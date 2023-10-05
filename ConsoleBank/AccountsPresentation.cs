@@ -1,6 +1,7 @@
 ﻿using ConsoleBank.BusinessLogicLayer;
 using ConsoleBank.BusinessLogicLayer.BALContracts;
 using ConsoleBank.Entities;
+using ConsoleBank.Exceptions;
 
 namespace ConsoleBank.Presentation
 {
@@ -20,10 +21,15 @@ namespace ConsoleBank.Presentation
 
                 IAccountsBusinessLogicLayer accountsLL = new AccountsBusinessLogicLayer();
                 ICustomersBusinessLogicLayer customersBLL = new CustomersBusinessLogicLayer();
+                
+                //Retrieving specific customer from List
+                Customer? cust = customersBLL.GetCustomersByCondition(c => c.CustomerCode == account.CustomerCode).FirstOrDefault();
+                if (cust == null)
+                    throw new CustomerException("Customer is not found");
 
-                Customer cust = customersBLL.GetCustomersByCondition(c => c.CustomerCode == account.CustomerCode).FirstOrDefault();
                 accountsLL.AddAccount(account, cust);
 
+                Console.WriteLine("Account is added!");
 
 
             }
@@ -46,7 +52,8 @@ namespace ConsoleBank.Presentation
                 {
                     Console.WriteLine($"Account Customer Code: {account.CustomerCode}");
                     Console.WriteLine($"Account Holder Name: {account.Customer.CustomerName}");
-                    Console.WriteLine($"Account ID : {account.AccountNo}\n");
+                    Console.WriteLine($"Account ID : {account.AccountNo}");
+                    Console.WriteLine($"Balance: ${account.Balance}\n");
                 });
 
             }
