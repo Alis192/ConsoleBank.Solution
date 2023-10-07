@@ -46,6 +46,14 @@ namespace ConsoleBank.DataAccessLayer.DALContracts
         /// <param name="customerID">CustomerID to delete</param>
         /// <returns>Returns true, that indicates the customer is deleted successfully</returns>
         bool DeleteCustomer(Guid customerID);
+
+        /// <summary>
+        /// Adds an account to Customer entity
+        /// </summary>
+        /// <param name="customerCode"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        void CustomerAddAcount(long customerCode, Account account);
     }
 
 }

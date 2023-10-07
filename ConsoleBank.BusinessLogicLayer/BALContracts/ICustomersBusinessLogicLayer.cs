@@ -46,6 +46,14 @@ namespace ConsoleBank.BusinessLogicLayer.BALContracts
         /// <param name="customerID">CustomerID to delete</param>
         /// <returns>Returns true, that indicates the customer is deleted successfully</returns>
         bool DeleteCustomer(Guid customerID);
+
+        /// <summary>
+        /// Adds Account to Customer entity
+        /// </summary>
+        /// <param name="customerCode"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        void CustomerAddAccount(long customerCode, Account account);
     }
 
 }

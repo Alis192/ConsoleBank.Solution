@@ -15,7 +15,7 @@ namespace ConsoleBank.Presentation
 
                 //read all details from the user
                 Console.WriteLine("\n********ADD ACCOUNT*************");
-                Console.Write("Enter Customer Code: ");
+                Console.WriteLine("Enter Customer Code: ");
                 string customerCode = Console.ReadLine();
                 account.CustomerCode = (long)Convert.ToDouble(customerCode);
 
@@ -28,6 +28,7 @@ namespace ConsoleBank.Presentation
                     throw new CustomerException("Customer is not found");
 
                 accountsLL.AddAccount(account, cust);
+                customersBLL.CustomerAddAccount(account.CustomerCode, account);
 
                 Console.WriteLine("Account is added!");
 

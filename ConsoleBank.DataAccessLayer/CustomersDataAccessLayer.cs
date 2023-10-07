@@ -197,6 +197,7 @@ namespace ConsoleBank.DataAccessLayer
                     existingCustomer.Country = customer.Country;
                     existingCustomer.Mobile = customer.Mobile;
 
+
                     return true; //indicates the customer is updated
                 }
                 else
@@ -242,6 +243,33 @@ namespace ConsoleBank.DataAccessLayer
                 throw;
             }
         }
+
+        public void CustomerAddAcount(long customerCode, Account account)
+        {
+            try
+            {
+                Customer? customer = Customers.Find(cust => cust.CustomerCode == customerCode);
+                if (customer == null)
+                {
+                    throw new CustomerException("No Customer found with given Customer Code");
+                }
+
+                customer.Accounts.Add(account);
+            }
+            catch (CustomerException)
+            {
+                throw;
+            }
+            catch(AccountException)
+            {
+                throw;
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+        }
+
 
         #endregion
     }

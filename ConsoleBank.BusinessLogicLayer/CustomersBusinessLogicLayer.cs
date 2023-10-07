@@ -169,6 +169,26 @@ namespace ConsoleBank.BusinessLogicLayer
                 throw;
             }
         }
+
+        public void CustomerAddAccount(long customerCode, Account account)
+        {
+            try
+            {
+                CustomersDataAccessLayer.CustomerAddAcount(customerCode, account);
+            }
+            catch (CustomerException)
+            {
+                throw;
+            }
+            catch (AccountException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
     }
 

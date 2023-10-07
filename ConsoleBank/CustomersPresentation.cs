@@ -186,6 +186,44 @@ namespace ConsoleBank.Presentation
 
         }
 
+        internal static void SearchCustomers()
+        {
+            ICustomersBusinessLogicLayer customersBLL = new CustomersBusinessLogicLayer();
+
+
+            Console.WriteLine("\nPlease enter Customer code of a customer to see full details: ");
+            string userInput = Console.ReadLine();
+
+            //Validating user input
+            bool result = long.TryParse(userInput, out long customerCode);
+            if (result == false)
+                throw new FormatException("The input is not in correct format\n");
+
+            //Validating customer number
+            Customer? cust = customersBLL.GetCustomersByCondition(ct => ct.CustomerCode == customerCode).FirstOrDefault();
+            if (cust == null)
+                throw new CustomerException($"The customer with Customer Code: {customerCode} was not found!\n");
+
+
+            Console.WriteLine($"The details of Customer No {cust.CustomerCode}");
+            Console.WriteLine($"Customer Name: {cust.CustomerName}");
+            Console.WriteLine($"Customer Address: {cust.Address}");
+            Console.WriteLine($"Customer Mobile: {cust.Mobile}");
+            Console.WriteLine($"City of residence: {cust.City}");
+            Console.WriteLine($"Country of Residence: {cust.Country}");
+            Console.WriteLine("Customer Accounts: ");
+            cust.Accounts.ForEach(acc =>
+            {
+                int i = 1;
+                Console.WriteLine("*****************************\n");
+                Console.WriteLine($"Account {i}: {acc.AccountNo}");
+                Console.WriteLine($"Balance: {acc.Balance}");
+                i++;
+            });
+
+
+        }
+
 
     }
 

@@ -96,6 +96,7 @@ class Program
                 case 1: CustomersPresentation.AddCustomer(); break;
                 case 2: CustomersPresentation.DeleteCustomer(); break;  
                 case 3: CustomersPresentation.EditCustomer(); break;
+                case 4: CustomersPresentation.SearchCustomers(); break;
                 case 5: CustomersPresentation.ViewCustomers(); break;
             }
         } while (customerMenuChoice != 0);

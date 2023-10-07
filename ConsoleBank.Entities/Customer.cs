@@ -24,9 +24,17 @@ namespace ConsoleBank.Entities
         /// </summary>
         public Guid CustomerID { get => _customerID; set => _customerID = value; }
 
+
+        public Customer()
+        {
+            Accounts= new List<Account>();
+        }
+
+
         /// <summary>
         /// Auto-generated code number of the customer
         /// </summary>
+        /// 
         public long CustomerCode
         {
             get => _customerCode;
@@ -113,7 +121,7 @@ namespace ConsoleBank.Entities
         #region Methods
         public object Clone()
         {
-            return new Customer() { CustomerID = this.CustomerID, CustomerCode = this.CustomerCode, CustomerName = this.CustomerName, Address = this.Address, Landmark = this.Landmark, _address = this.Address, City = this.City, Country = this.Country, Mobile = this.Mobile };
+            return new Customer() { CustomerID = this.CustomerID, CustomerCode = this.CustomerCode, CustomerName = this.CustomerName, Address = this.Address, Landmark = this.Landmark, _address = this.Address, City = this.City, Country = this.Country, Mobile = this.Mobile, Accounts = this.Accounts };
         }
         #endregion
     }
